@@ -7,14 +7,12 @@ pipeline {
       triggers{
         pollSCM '*/5 * * * *'
       }
-        stages {
-    stage('Verify version') {
+    stages {
+            stage('Verify version') {
       steps {
         sh 'docker run --rm flyway/flyway:8.5.1 version'
       }
     }
-  }
-    stages {
         stage('Build') {
             steps {
                 echo "Building.."
