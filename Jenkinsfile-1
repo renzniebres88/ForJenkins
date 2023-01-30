@@ -1,10 +1,46 @@
 pipeline {
-  agent any 
-  stages {
+    agent { 
+        node {
+            label 'jenkins'
+            }
+      }
+      triggers{
+        pollSCM '*/5 * * * *'
+      }
+        stages {
     stage('Verify version') {
       steps {
         sh 'docker run --rm flyway/flyway:8.5.1 version'
       }
     }
   }
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building.."
+                sh '''
+                  cd ddl
+                echo "doing build stuff.."
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Testing.."
+                sh '''
+                cd ddl
+                echo "doing test stuff.."
+                '''
+            }
+        }
+        stage('Deliver') {
+            steps {
+                echo "Deliver...."
+                sh '''
+                cd ddl
+                echo "doing delivery stuff.."
+                '''
+            }
+        }
+    }
 }
