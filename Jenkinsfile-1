@@ -8,19 +8,10 @@ pipeline {
         pollSCM '*/5 * * * *'
       }
     stages {
-stage('Apply DB changes') {
-
-    agent {
-        docker {
-            image 'boxfuse/flyway:5.2.4'
-            args '-v ./db/migration:/flyway/sql --entrypoint=\'\''
-        }
+            stage('Verify version') {
+      steps {
+        sh 'docker run -u --rm -v --privileged var/lib/docker:var/lib/docker -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_homes:/var/jenkins_homes -v $(which docker):/usr/bin/docker jenkins/jenkins:lts'
+      }
     }
-
-    steps {
-        sh "/flyway/flyway -url=jdbc:mariadb://mariadb_service -schemas=${MYSQL_DATABASE} -table=schema_version -connectRetries=60 info"
-    }
-
-}
     }
 }
