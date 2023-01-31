@@ -10,7 +10,11 @@ pipeline {
     stages {
             stage('Verify version') {
       steps {
-        sh 'docker run -u 0 --privileged --name jenkins -it -d \-v /var/run/docker.sock:/var/run/docker.sock \-v $(which docker):/usr/bin/docker \-v /home/jenkins_home:/var/jenkins_home \flyway/flyway'
+        sh 'docker run --name jenkins -p 8080:8080 -p 50000:50000
+-v /var/run/docker.sock:/var/run/docker.sock
+-v $(which docker):/usr/bin/docker
+-v /home/jenkins_homes:/var/jenkins_homes
+flyway/flyway'
       }
     }
     }
