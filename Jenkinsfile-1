@@ -8,7 +8,7 @@ pipeline {
         pollSCM '*/5 * * * *'
       }
     stages {
-            stage('Verify version') {
+            stage('Build') {
       steps {
         sh 'docker run --rm -v --privileged var/lib/docker:var/lib/docker -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_homes:/var/jenkins_homes -v $(which docker):/usr/bin/docker flyway/flyway:8.5.1'
       }
