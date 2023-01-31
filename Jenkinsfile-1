@@ -7,6 +7,7 @@ pipeline {
       triggers{
         pollSCM '*/5 * * * *'
       }
+    stages {
 stage('Apply DB changes') {
 
     agent {
@@ -21,4 +22,5 @@ stage('Apply DB changes') {
     }
 
 }
+    }
 }
