@@ -10,35 +10,8 @@ pipeline {
     stages {
             stage('Verify version') {
       steps {
-        sh 'docker run -d -u -p 8181:8181 --rm -v jenkins_homes:/var/jenkins_homes -v $(which docker):/usr/bin/docker flyway/flyway:8.5.1'
+        sh 'docker run --rm -v --privileged var/lib/docker:var/lib/docker -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_homes:/var/jenkins_homes -v $(which docker):/usr/bin/docker flyway/flyway:8.5.1'
       }
     }
-        stage('Build') {
-            steps {
-                echo "Building.."
-                sh '''
-                  cd ddl
-                echo "doing build stuff.."
-                '''
-            }
-        }
-        stage('Test') {
-            steps {
-                echo "Testing.."
-                sh '''
-                cd ddl
-                echo "doing test stuff.."
-                '''
-            }
-        }
-        stage('Deliver') {
-            steps {
-                echo "Deliver...."
-                sh '''
-                cd ddl
-                echo "doing delivery stuff.."
-                '''
-            }
-        }
     }
 }
