@@ -1,12 +1,10 @@
 pipeline {
-    agent {    
-            label 'jenkins'  
-      }
-    stages {
-            stage('Verify version') {
+  agent any 
+  stages {
+    stage('Verify version') {
       steps {
-        sh 'docker run --rm flyway/flyway'
+        sh 'docker run --rm flyway/flyway:8.5.1 version'
       }
     }
-    }
+  }
 }
