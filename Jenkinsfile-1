@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Verify version') {
       steps {
-        sh 'docker run -u jenkins --rm -v /home/jenkins/:var/jenkins_home\ flyway/flyway:8.5.1 version'
+        sh 'docker run -u jenkins --rm -v /home/jenkins/:var/jenkins_home flyway/flyway:8.5.1 version'
       }
     }
   }
