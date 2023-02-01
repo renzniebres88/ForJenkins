@@ -1,12 +1,6 @@
 pipeline {
   agent any 
   stages {
-     stage('Initialize'){
-      steps{
-        def dockerHome = tool 'myDocker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"     
-      }
-    }
     stage('Verify version') {
       steps {
         sh 'docker run --rm -v /var/jenkins_home:~/.jenkins -v /var/run/docker.sock:/var/run/docker.sock -v /usr/local/bin:/user/bin flyway/flyway:8.5.1 version'
